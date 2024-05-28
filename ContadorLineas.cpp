@@ -35,14 +35,14 @@ int countLinesOfCode(string filePath) {
     
     ifstream file(filePath);
     if (!file.is_open()) {
-        cerr << "Failed to open the file." << endl;
+        cerr << "Error al abrir el archivo" << endl;
         return -1;
     }
     
     string line;
     while (getline(file, line)) {
         string strippedLine = line;
-        strippedLine.erase(0, strippedLine.find_first_not_of(" \t\n\v\f\r")); // trim leading spaces
+        strippedLine.erase(0, strippedLine.find_first_not_of(" \t\n\v\f\r")); // Borrar espacios vacios
         
         if (inBlockComment) {
             if (strippedLine.find("*/") != string::npos) {
