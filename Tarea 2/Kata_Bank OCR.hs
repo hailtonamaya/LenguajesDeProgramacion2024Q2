@@ -31,7 +31,7 @@ encriptadoaN = mapMaybe encriptadoaNumero
 
 main :: IO ()
 main = do
-    contents <- readFile "Entrada.txt"
+    contents <- readFile "archivo_prueba.txt"
     let groupedLines = grupos4Lineas (lines contents)
     let segments = map (convLineasAEncri . take 3) groupedLines
     let digits = map encriptadoaN segments
