@@ -1,0 +1,38 @@
+program         = "program", identifier, declarationSection, executableSection, "end program", identifier;
+
+declarationSection = "implicit none", { declarationConstruct };
+
+declarationConstruct = declarationTypeSpec, "::", entityDeclList, ";";
+entityDeclList  = entityDecl, { ",", entityDecl };
+entityDecl      = objectName | objectName, arraySpec? | objectName, complexLiteralConstant;
+
+executableSection = { executableConstruct };
+
+executableConstruct = actionStmt | doConstruct | printStmt | comment;
+
+actionStmt      = objectName, "=", expr, ";";
+doConstruct     = "do", objectName, "=", intLiteralConstant, ",", intLiteralConstant, { executableConstruct }, "end do", ";";
+printStmt       = "print", "*", ",", charLiteralConstant, { ",", expr }, ";";
+
+declarationTypeSpec = "integer" | "complex";
+
+expr            = parameter | intLiteralConstant | objectName | arrayElement | complexLiteralConstant | expr, "+", expr;
+
+parameter       = "(" identifier ")"
+arrayElement    = objectName, "(", intLiteralConstant, ")";
+complexLiteralConstant = "(", realPart, ",", imagPart, ")";
+
+identifier      = letter, { identifierChar };
+identifierChar  = letter | digit;
+
+intLiteralConstant = digit, { digit };
+
+realPart        = digit, ".", digit, { digit };
+imagPart        = digit, ".", digit, { digit };
+
+charLiteralConstant = "\"", { anyText }, "\"";
+anyText         = character, { character };
+character       = letter | digit | specialChar;
+specialChar     = " " | "." | "," | "+" | "-" | "*" | "/" | "(" | ")" | "[" | "]" | "!" | "=" | "_";
+
+objectName      = identifier;

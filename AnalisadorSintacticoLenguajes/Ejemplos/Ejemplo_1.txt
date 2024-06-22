@@ -1,0 +1,12 @@
+program suma_complejos
+    implicit none
+    
+    complex :: z1, z2, resultado
+    
+    z1 = (2.0, 3.0) 
+    z2 = (-1.0, 2.5)
+    
+    resultado = z1 + z2
+    
+    print *, "La suma de los numeros complejos es:", real(resultado), "+", aimag(resultado), "i"
+end program suma_complejos
